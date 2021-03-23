@@ -1,0 +1,303 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:layout_editor_absoluteX="130dp"
+        tools:layout_editor_absoluteY="185dp">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?attr/colorPrimary"
+            android:minHeight="?attr/actionBarSize"
+            android:theme="?attr/actionBarTheme" />
+
+        <LinearLayout
+            android:id="@+id/reminder_top"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/toolbar2"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/Toptitle"
+                android:layout_width="match_parent"
+                android:layout_height="148dp"
+                android:orientation="vertical">
+
+                <EditText
+                    android:id="@+id/title"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="72dp"
+                    android:layout_marginLeft="72dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginRight="16dp"
+                    android:autofillHints=""
+                    android:ems="10"
+                    android:gravity="top|left"
+                    android:inputType="textMultiLine|textCapWords"
+                    android:lines="4"
+                    android:minLines="4"
+                    android:text="Name"
+                    android:textColor="#FFFFFF"
+                    android:textSize="30sp" />
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/reminder_top">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:id="@+id/date"
+                    android:layout_width="match_parent"
+                    android:layout_height="72dp"
+                    android:clickable="true"
+                    android:onClick="setDate"
+                    android:focusable="true">
+
+                    <ImageView
+                        android:id="@+id/date_icon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentTop="false"
+                        android:layout_alignParentRight="false"
+                        android:layout_alignParentBottom="false"
+                        android:layout_centerHorizontal="false"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginLeft="13dp"
+                        android:layout_marginEnd="32dp"
+                        android:layout_marginRight="32dp"
+                        app:srcCompat="@android:drawable/ic_dialog_dialer"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentEnd="false" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_centerVertical="true"
+                        android:layout_toRightOf="@id/date_icon"
+                        android:orientation="vertical"
+                        android:layout_toEndOf="@id/date_icon">
+
+                        <TextView
+                            android:id="@+id/textView"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="date"
+                            android:textSize="28sp" />
+
+                        <TextView
+                            android:id="@+id/textView2"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:text="TextView"
+                            android:textSize="24sp" />
+                    </LinearLayout>
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/time"
+                    android:layout_width="match_parent"
+                    android:layout_height="72dp"
+                    android:clickable="true"
+                    android:onClick="setTime"
+                    android:focusable="true">
+
+                    <ImageView
+                        android:id="@+id/imageView2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginEnd="32dp"
+                        android:layout_marginRight="32dp"
+                        app:srcCompat="@android:drawable/ic_menu_recent_history"
+                        android:layout_alignParentStart="true" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_toRightOf="@id/imageView2"
+                        android:orientation="vertical"
+                        android:layout_toEndOf="@id/imageView2">
+
+                        <TextView
+                            android:id="@+id/textView3"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="time"
+                            android:textSize="28sp" />
+
+                        <TextView
+                            android:id="@+id/textView4"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:text="TextView"
+                            android:textSize="24sp" />
+                    </LinearLayout>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/repeat"
+                    android:layout_width="match_parent"
+                    android:layout_height="72dp">
+
+                    <ImageView
+                        android:id="@+id/imageView3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginEnd="32dp"
+                        android:layout_marginRight="32dp"
+                        app:srcCompat="@android:drawable/ic_popup_sync"
+                        android:layout_alignParentStart="true" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_toRightOf="@id/imageView3"
+                        android:orientation="vertical"
+                        android:layout_toEndOf="@id/imageView3">
+
+                        <TextView
+                            android:id="@+id/textView5"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="repeat"
+                            android:textSize="28sp" />
+
+                        <TextView
+                            android:id="@+id/textView6"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:text="TextView"
+                            android:textSize="24sp" />
+
+                    </LinearLayout>
+
+                    <Switch
+                        android:id="@+id/switch1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginEnd="16dp"
+                        android:layout_marginRight="16dp"
+                        android:checked="true" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/adress"
+                    android:layout_width="match_parent"
+                    android:layout_height="72dp">
+
+                    <ImageView
+                        android:id="@+id/imageView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginEnd="32dp"
+                        android:layout_marginRight="32dp"
+                        app:srcCompat="@android:drawable/ic_dialog_map"
+                        android:layout_alignParentStart="true" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_toRightOf="@id/imageView"
+                        android:orientation="vertical"
+                        android:layout_toEndOf="@id/imageView">
+
+                        <TextView
+                            android:id="@+id/textView7"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="address"
+                            android:textSize="28sp" />
+
+                        <TextView
+                            android:id="@+id/textView10"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:text="TextView"
+                            android:textSize="24sp" />
+                    </LinearLayout>
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="72dp">
+
+                    <ImageView
+                        android:id="@+id/imageView4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginEnd="32dp"
+                        android:layout_marginRight="32dp"
+                        app:srcCompat="@android:drawable/ic_dialog_email"
+                        android:layout_alignParentStart="true" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_toRightOf="@id/imageView4"
+                        android:orientation="vertical"
+                        android:layout_toEndOf="@id/imageView4">
+
+                        <TextView
+                            android:id="@+id/textView11"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="contact"
+                            android:textSize="28sp" />
+
+                        <TextView
+                            android:id="@+id/textView13"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:text="TextView"
+                            android:textSize="24sp" />
+                    </LinearLayout>
+                </RelativeLayout>
+
+            </LinearLayout>
+        </ScrollView>
+
+    </RelativeLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
