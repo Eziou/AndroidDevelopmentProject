@@ -7,7 +7,7 @@
     xmlns:fab="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".ReminderAddActivity">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
@@ -41,7 +41,7 @@
         android:layout_below="@+id/toolbar"
         android:background="@color/teal_700" />
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
+   <!-- <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/add_reminder"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -55,7 +55,7 @@
         android:contentDescription="Add"
         android:focusable="true"
         fab:fab_colorNormal="@color/accent"
-        fab:fab_colorPressed="@color/fab_pressed" />
+        fab:fab_colorPressed="@color/fab_pressed" />-->
 
 
 </RelativeLayout>

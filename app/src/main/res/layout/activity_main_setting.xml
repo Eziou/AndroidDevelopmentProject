@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".ReminderAddActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -13,7 +13,7 @@
         tools:layout_editor_absoluteY="185dp">
 
         <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar2"
+            android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="?attr/colorPrimary"
@@ -24,11 +24,11 @@
             android:id="@+id/reminder_top"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/toolbar2"
+            android:layout_below="@id/toolbar"
             android:orientation="vertical">
 
             <LinearLayout
-                android:id="@+id/Toptitle"
+                android:id="@+id/reminder_title"
                 android:layout_width="match_parent"
                 android:layout_height="148dp"
                 android:orientation="vertical">
@@ -49,6 +49,7 @@
                     android:minLines="4"
                     android:text="Name"
                     android:textColor="#FFFFFF"
+                    android:background="@color/cardview_dark_background"
                     android:textSize="30sp" />
 
             </LinearLayout>
@@ -69,7 +70,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="72dp"
                     android:clickable="true"
-                    android:onClick="setDate"
+                    android:onClick="set_Date"
                     android:focusable="true">
 
                     <ImageView
@@ -99,14 +100,14 @@
                         android:layout_toEndOf="@id/date_icon">
 
                         <TextView
-                            android:id="@+id/textView"
+                            android:id="@+id/menu_date"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="date"
                             android:textSize="28sp" />
 
                         <TextView
-                            android:id="@+id/textView2"
+                            android:id="@+id/set_date"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:text="TextView"
@@ -119,11 +120,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="72dp"
                     android:clickable="true"
-                    android:onClick="setTime"
+                    android:onClick="set_Time"
                     android:focusable="true">
 
                     <ImageView
-                        android:id="@+id/imageView2"
+                        android:id="@+id/time_icon"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentLeft="true"
@@ -138,19 +139,19 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_toRightOf="@id/imageView2"
+                        android:layout_toRightOf="@id/time_icon"
                         android:orientation="vertical"
-                        android:layout_toEndOf="@id/imageView2">
+                        android:layout_toEndOf="@id/time_icon">
 
                         <TextView
-                            android:id="@+id/textView3"
+                            android:id="@+id/menu_time"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="time"
                             android:textSize="28sp" />
 
                         <TextView
-                            android:id="@+id/textView4"
+                            android:id="@+id/set_time"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:text="TextView"
@@ -165,7 +166,7 @@
                     android:layout_height="72dp">
 
                     <ImageView
-                        android:id="@+id/imageView3"
+                        android:id="@+id/repeat_icon"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentLeft="true"
@@ -180,19 +181,19 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_toRightOf="@id/imageView3"
+                        android:layout_toRightOf="@id/repeat_icon"
                         android:orientation="vertical"
-                        android:layout_toEndOf="@id/imageView3">
+                        android:layout_toEndOf="@id/repeat_icon">
 
                         <TextView
-                            android:id="@+id/textView5"
+                            android:id="@+id/menu_repeat"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="repeat"
                             android:textSize="28sp" />
 
                         <TextView
-                            android:id="@+id/textView6"
+                            android:id="@+id/set_repeat"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:text="TextView"
@@ -201,7 +202,7 @@
                     </LinearLayout>
 
                     <Switch
-                        android:id="@+id/switch1"
+                        android:id="@+id/repeat_switch"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
@@ -215,12 +216,13 @@
                 </RelativeLayout>
 
                 <RelativeLayout
-                    android:id="@+id/adress"
+                    android:id="@+id/address"
+                    android:onClick="set_Address"
                     android:layout_width="match_parent"
                     android:layout_height="72dp">
 
                     <ImageView
-                        android:id="@+id/imageView"
+                        android:id="@+id/address_icon"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentLeft="true"
@@ -235,19 +237,19 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_toRightOf="@id/imageView"
+                        android:layout_toRightOf="@id/address_icon"
                         android:orientation="vertical"
-                        android:layout_toEndOf="@id/imageView">
+                        android:layout_toEndOf="@id/address_icon">
 
                         <TextView
-                            android:id="@+id/textView7"
+                            android:id="@+id/menu_address"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="address"
                             android:textSize="28sp" />
 
                         <TextView
-                            android:id="@+id/textView10"
+                            android:id="@+id/set_address"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:text="TextView"
@@ -256,11 +258,13 @@
                 </RelativeLayout>
 
                 <RelativeLayout
+                    android:id="@+id/contact"
+                    android:onClick="set_Contact"
                     android:layout_width="match_parent"
                     android:layout_height="72dp">
 
                     <ImageView
-                        android:id="@+id/imageView4"
+                        android:id="@+id/contact_icon"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentLeft="true"
@@ -275,19 +279,19 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_toRightOf="@id/imageView4"
+                        android:layout_toRightOf="@id/contact_icon"
                         android:orientation="vertical"
-                        android:layout_toEndOf="@id/imageView4">
+                        android:layout_toEndOf="@id/contact_icon">
 
                         <TextView
-                            android:id="@+id/textView11"
+                            android:id="@+id/menu_contact"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="contact"
                             android:textSize="28sp" />
 
                         <TextView
-                            android:id="@+id/textView13"
+                            android:id="@+id/set_contact"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:text="TextView"
