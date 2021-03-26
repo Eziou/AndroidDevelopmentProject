@@ -9,6 +9,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@android:color/background_light"
         tools:layout_editor_absoluteX="130dp"
         tools:layout_editor_absoluteY="185dp">
 
@@ -42,14 +43,13 @@
                     android:layout_marginEnd="16dp"
                     android:layout_marginRight="16dp"
                     android:autofillHints=""
+                    android:background="@color/cardview_dark_background"
                     android:ems="10"
-                    android:gravity="top|left"
+                    android:gravity="top|start"
                     android:inputType="textMultiLine|textCapWords"
                     android:lines="4"
                     android:minLines="4"
-                    android:text="Name"
                     android:textColor="#FFFFFF"
-                    android:background="@color/cardview_dark_background"
                     android:textSize="30sp" />
 
             </LinearLayout>
@@ -70,15 +70,17 @@
                     android:layout_width="match_parent"
                     android:layout_height="72dp"
                     android:clickable="true"
-                    android:onClick="set_Date"
-                    android:focusable="true">
+                    android:focusable="true"
+                    android:onClick="set_Date">
 
                     <ImageView
                         android:id="@+id/date_icon"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
                         android:layout_alignParentLeft="true"
                         android:layout_alignParentTop="false"
+                        android:layout_alignParentEnd="false"
                         android:layout_alignParentRight="false"
                         android:layout_alignParentBottom="false"
                         android:layout_centerHorizontal="false"
@@ -87,30 +89,27 @@
                         android:layout_marginLeft="13dp"
                         android:layout_marginEnd="32dp"
                         android:layout_marginRight="32dp"
-                        app:srcCompat="@android:drawable/ic_dialog_dialer"
-                        android:layout_alignParentStart="true"
-                        android:layout_alignParentEnd="false" />
+                        app:srcCompat="@android:drawable/ic_dialog_dialer" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_centerVertical="true"
+                        android:layout_toEndOf="@id/date_icon"
                         android:layout_toRightOf="@id/date_icon"
-                        android:orientation="vertical"
-                        android:layout_toEndOf="@id/date_icon">
+                        android:orientation="vertical">
 
                         <TextView
                             android:id="@+id/menu_date"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="date"
+                            android:text="@string/date"
                             android:textSize="28sp" />
 
                         <TextView
                             android:id="@+id/set_date"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:text="TextView"
                             android:textSize="24sp" />
                     </LinearLayout>
                 </RelativeLayout>
@@ -120,41 +119,40 @@
                     android:layout_width="match_parent"
                     android:layout_height="72dp"
                     android:clickable="true"
-                    android:onClick="set_Time"
-                    android:focusable="true">
+                    android:focusable="true"
+                    android:onClick="set_Time">
 
                     <ImageView
                         android:id="@+id/time_icon"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
                         android:layout_alignParentLeft="true"
                         android:layout_centerVertical="true"
                         android:layout_marginStart="16dp"
                         android:layout_marginLeft="16dp"
                         android:layout_marginEnd="32dp"
                         android:layout_marginRight="32dp"
-                        app:srcCompat="@android:drawable/ic_menu_recent_history"
-                        android:layout_alignParentStart="true" />
+                        app:srcCompat="@android:drawable/ic_menu_recent_history" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:layout_toEndOf="@id/time_icon"
                         android:layout_toRightOf="@id/time_icon"
-                        android:orientation="vertical"
-                        android:layout_toEndOf="@id/time_icon">
+                        android:orientation="vertical">
 
                         <TextView
                             android:id="@+id/menu_time"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="time"
+                            android:text="@string/time"
                             android:textSize="28sp" />
 
                         <TextView
                             android:id="@+id/set_time"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:text="TextView"
                             android:textSize="24sp" />
                     </LinearLayout>
 
@@ -169,34 +167,33 @@
                         android:id="@+id/repeat_icon"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
                         android:layout_alignParentLeft="true"
                         android:layout_centerVertical="true"
                         android:layout_marginStart="16dp"
                         android:layout_marginLeft="16dp"
                         android:layout_marginEnd="32dp"
                         android:layout_marginRight="32dp"
-                        app:srcCompat="@android:drawable/ic_popup_sync"
-                        android:layout_alignParentStart="true" />
+                        app:srcCompat="@android:drawable/ic_popup_sync" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:layout_toEndOf="@id/repeat_icon"
                         android:layout_toRightOf="@id/repeat_icon"
-                        android:orientation="vertical"
-                        android:layout_toEndOf="@id/repeat_icon">
+                        android:orientation="vertical">
 
                         <TextView
                             android:id="@+id/menu_repeat"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="repeat"
+                            android:text="@string/repeat"
                             android:textSize="28sp" />
 
                         <TextView
                             android:id="@+id/set_repeat"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:text="TextView"
                             android:textSize="24sp" />
 
                     </LinearLayout>
@@ -216,85 +213,181 @@
                 </RelativeLayout>
 
                 <RelativeLayout
-                    android:id="@+id/address"
-                    android:onClick="set_Address"
                     android:layout_width="match_parent"
-                    android:layout_height="72dp">
+                    android:id="@+id/RepeatNo"
+                    android:clickable="true"
+                    android:onClick="setRepeatNo"
+                    android:background="?android:attr/selectableItemBackground"
+                    android:layout_height="72dp"
+                    android:focusable="true">
 
                     <ImageView
-                        android:id="@+id/address_icon"
+                        android:id="@+id/repeat_no_icon"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
                         android:layout_alignParentLeft="true"
                         android:layout_centerVertical="true"
                         android:layout_marginStart="16dp"
                         android:layout_marginLeft="16dp"
                         android:layout_marginEnd="32dp"
                         android:layout_marginRight="32dp"
-                        app:srcCompat="@android:drawable/ic_dialog_map"
-                        android:layout_alignParentStart="true" />
+                        app:srcCompat="@android:drawable/ic_media_pause" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_centerVertical="true"
+                        android:layout_toRightOf="@id/repeat_no_icon"
+                        android:layout_height="wrap_content"
+                        android:layout_toEndOf="@id/repeat_no_icon">
+
+                        <TextView
+                            android:id="@+id/repeat_no_text"
+                            android:textColor="@color/abc_primary_text_material_dark"
+                            android:layout_width="wrap_content"
+                            android:textSize="15sp"
+                            android:layout_height="wrap_content"
+                            android:text="@string/repeat_no" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:id="@+id/set_repeat_no"
+                            android:textSize="15sp"
+                            android:textColor="@color/abc_secondary_text_material_dark"
+                            android:layout_height="wrap_content"/>
+
+                    </LinearLayout>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:id="@+id/RepeatType"
+                    android:clickable="true"
+                    android:onClick="selectRepeatType"
+                    android:background="?android:attr/selectableItemBackground"
+                    android:layout_height="72dp"
+                    android:focusable="true">
+
+                    <ImageView
+                        android:id="@+id/repeat_type_icon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentLeft="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginEnd="32dp"
+                        android:layout_marginRight="32dp"
+                        app:srcCompat="@android:drawable/ic_menu_manage" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_centerVertical="true"
+                        android:layout_toRightOf="@id/repeat_type_icon"
+                        android:layout_height="wrap_content"
+                        android:layout_toEndOf="@id/repeat_type_icon">
+
+                        <TextView
+                            android:id="@+id/repeat_type_text"
+                            android:textColor="@color/abc_primary_text_material_dark"
+                            android:layout_width="wrap_content"
+                            android:textSize="15sp"
+                            android:layout_height="wrap_content"
+                            android:text="@string/repeat_type" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:id="@+id/set_repeat_type"
+                            android:textSize="15sp"
+                            android:textColor="@color/abc_secondary_text_material_dark"
+                            android:layout_height="wrap_content"/>
+
+                    </LinearLayout>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/address"
+                    android:layout_width="match_parent"
+                    android:layout_height="72dp"
+                    android:onClick="set_Address">
+
+                    <ImageView
+                        android:id="@+id/address_icon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentLeft="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginEnd="32dp"
+                        android:layout_marginRight="32dp"
+                        app:srcCompat="@android:drawable/ic_dialog_map" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:layout_toEndOf="@id/address_icon"
                         android:layout_toRightOf="@id/address_icon"
-                        android:orientation="vertical"
-                        android:layout_toEndOf="@id/address_icon">
+                        android:orientation="vertical">
 
                         <TextView
                             android:id="@+id/menu_address"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="address"
+                            android:text="@string/address"
                             android:textSize="28sp" />
 
                         <TextView
                             android:id="@+id/set_address"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:text="TextView"
                             android:textSize="24sp" />
                     </LinearLayout>
                 </RelativeLayout>
 
                 <RelativeLayout
                     android:id="@+id/contact"
-                    android:onClick="set_Contact"
                     android:layout_width="match_parent"
-                    android:layout_height="72dp">
+                    android:layout_height="72dp"
+                    android:onClick="set_Contact">
 
                     <ImageView
                         android:id="@+id/contact_icon"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
                         android:layout_alignParentLeft="true"
                         android:layout_centerVertical="true"
                         android:layout_marginStart="16dp"
                         android:layout_marginLeft="16dp"
                         android:layout_marginEnd="32dp"
                         android:layout_marginRight="32dp"
-                        app:srcCompat="@android:drawable/ic_dialog_email"
-                        android:layout_alignParentStart="true" />
+                        app:srcCompat="@android:drawable/ic_dialog_email" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:layout_toEndOf="@id/contact_icon"
                         android:layout_toRightOf="@id/contact_icon"
-                        android:orientation="vertical"
-                        android:layout_toEndOf="@id/contact_icon">
+                        android:orientation="vertical">
 
                         <TextView
                             android:id="@+id/menu_contact"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="contact"
+                            android:text="@string/contact"
                             android:textSize="28sp" />
 
                         <TextView
                             android:id="@+id/set_contact"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:text="TextView"
                             android:textSize="24sp" />
                     </LinearLayout>
                 </RelativeLayout>
