@@ -46,10 +46,10 @@ public class ReminderAddActivity extends AppCompatActivity implements
         setAddress = findViewById(R.id.set_address);
         setContact = findViewById(R.id.set_contact);
 
-        getSupportActionBar().setTitle("setReminder_title");
+        /*getSupportActionBar().setTitle("setReminder_title");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
-        setSupportActionBar(toolbar);
+        setSupportActionBar(toolbar);*/
 
         cal = Calendar.getInstance();
         hour = cal.get(Calendar.HOUR_OF_DAY);

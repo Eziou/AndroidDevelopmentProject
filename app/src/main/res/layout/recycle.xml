@@ -33,7 +33,7 @@
             android:layout_height="wrap_content"
             android:ellipsize="end"
             android:maxLines="2"
-            android:textColor="@color/abc_primary_text_material_dark"
+            android:textColor="@color/black"
             android:textSize="16sp"
             tools:text="Title" />
 
@@ -43,7 +43,7 @@
             android:layout_height="wrap_content"
             android:ellipsize="marquee"
             android:singleLine="true"
-            android:textColor="@color/abc_secondary_text_material_dark"
+            android:textColor="@color/black"
             android:textSize="13sp"
             tools:text="Date and Time" />
 
@@ -53,7 +53,7 @@
             android:layout_height="wrap_content"
             android:ellipsize="marquee"
             android:singleLine="true"
-            android:textColor="@color/abc_secondary_text_material_dark"
+            android:textColor="@color/black"
             android:textSize="13sp"
             tools:text="Repeat No and Type" />
 
