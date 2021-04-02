@@ -21,8 +21,6 @@
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginBottom="4dp"
-        android:layout_toStartOf="@id/checkBox"
-        android:layout_toLeftOf="@id/checkBox"
         android:layout_toEndOf="@id/thumbnail_image"
         android:layout_toRightOf="@id/thumbnail_image"
         android:orientation="vertical">
@@ -58,16 +56,5 @@
             tools:text="Repeat No and Type" />
 
     </LinearLayout>
-
-    <CheckBox
-        android:id="@+id/checkBox"
-        android:layout_width="38dp"
-        android:layout_height="38dp"
-        android:layout_alignParentRight="true"
-        android:layout_centerVertical="true"
-        android:layout_marginStart="0dp"
-        android:layout_marginLeft="0dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp" />
 
 </RelativeLayout>

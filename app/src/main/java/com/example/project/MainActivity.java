@@ -24,22 +24,34 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    private Toolbar toolbar;
+    //private Toolbar toolbar;
     private RecyclerView mList;
-    private  UserAdapter mAdapter;
+    private UserAdapter mAdapter;
+    private TextView mNoReminderView;
     private LinearLayoutManager mLinearLayoutManager;
+    private DatabaseHelper userData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        userData = new DatabaseHelper(getApplicationContext());
+
         mLinearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         mAdapter = new UserAdapter();
 
         mList = (RecyclerView) findViewById(R.id.reminder_list);
+        mNoReminderView = (TextView) findViewById(R.id.no_reminder_text);
+        // registerForContextMenu(mList);
         mList.setLayoutManager(mLinearLayoutManager);
         mList.setAdapter(mAdapter);
+
+        List<Reminder> mTest = userData.getAllReminders();
+
+        if (mTest.isEmpty()) {
+            mNoReminderView.setVisibility(View.VISIBLE);
+        }
     }
 
     // On clicking a reminder item
@@ -93,14 +105,21 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder>{
+    public static class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder>{
 
-        private ArrayList<ReminderItem> mData;
+        private final ArrayList<ReminderItem> mData;
 
         public UserAdapter() {
             mData = new ArrayList<>();
         }
 
+        /*public void setItemCount(int count) {
+            mData.clear();
+            mData.addAll(generateData(count));
+            notifyDataSetChanged();
+        }*/
+
+        @NonNull
         @Override
         public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
@@ -115,7 +134,7 @@ public class MainActivity extends AppCompatActivity {
             ReminderItem item = mData.get(position);
             holder.setReminderTitle(item.mTitle);
             holder.setReminderTime(item.mDateTime);
-            holder.setReminderRepeat(item.mRepeat, item.mRepeatNo, item.mRepeatType);
+            holder.setReminderRepeat(item.mRepeat, item.mRepeatTime);
         }
 
         @Override
@@ -123,25 +142,25 @@ public class MainActivity extends AppCompatActivity {
             return mData.size();
         }
 
-        public  class ReminderItem {
+        public static class ReminderItem {
             public String mTitle;
             public String mDateTime;
             public String mRepeat;
-            public String mRepeatNo;
-            public String mRepeatType;
+            public String mRepeatTime;
+            //public String mRepeatType;
             public String mActive;
 
-            public ReminderItem(String Title, String DateTime, String Repeat, String RepeatNo, String RepeatType, String Active) {
+            public ReminderItem(String Title, String DateTime, String Repeat, String RepeatTime, String Active) {
                 this.mTitle = Title;
                 this.mDateTime = DateTime;
                 this.mRepeat = Repeat;
-                this.mRepeatNo = RepeatNo;
-                this.mRepeatType = RepeatType;
+                this.mRepeatTime = RepeatTime;
+                //this.mRepeatType = Repeat;
                 this.mActive = Active;
             }
         }
 
-        public class ViewHolder extends RecyclerView.ViewHolder
+        public static class ViewHolder extends RecyclerView.ViewHolder
                 implements View.OnClickListener {
 
             private TextView mTitle;
@@ -164,15 +183,19 @@ public class MainActivity extends AppCompatActivity {
             }
 
             public void setReminderTitle(String title) {
-
+                mTitle.setText(title);
             }
 
             public void setReminderTime(String time) {
-
+                mTime.setText(time);
             }
 
-            public void setReminderRepeat(String repeat, String repeatNo, String repeatType) {
-
+            public void setReminderRepeat(String repeat, String RepeatTime) {
+                if(repeat.equals("true")){
+                    mRepeat.setText("Every " + RepeatTime + " Days " + "(s)");
+                }else if (repeat.equals("false")) {
+                    mRepeat.setText("Repeat Off");
+                }
             }
         }
     }
