@@ -272,7 +272,7 @@
                 <RelativeLayout
                     android:id="@+id/address"
                     android:layout_width="match_parent"
-                    android:layout_height="72dp"
+                    android:layout_height="85dp"
                     android:onClick="set_Address">
 
                     <ImageView
@@ -303,12 +303,32 @@
                             android:textColor="@color/black"
                             android:textSize="28sp" />
 
-                        <TextView
-                            android:id="@+id/set_address"
+                        <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:textColor="@color/black"
-                            android:textSize="24sp" />
+                            android:orientation="horizontal">
+
+                            <EditText
+                                android:id="@+id/set_address"
+                                android:layout_width="267dp"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="start"
+                                android:autofillHints=""
+                                android:inputType="textMultiLine"
+                                android:scrollbars="vertical"
+                                android:textColor="@color/black"
+                                android:textSize="24sp" />
+
+                            <Button
+                                android:id="@+id/GoogleMaps"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:onClick="launchMaps"
+                                android:text="Maps"
+                                android:textSize="10sp"
+                                app:backgroundTint="#989595" />
+                        </LinearLayout>
+
                     </LinearLayout>
                 </RelativeLayout>
 
@@ -342,6 +362,7 @@
                             android:id="@+id/menu_contact"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:onClick="set_Contact"
                             android:text="@string/contact"
                             android:textColor="@color/black"
                             android:textSize="28sp" />
@@ -368,6 +389,7 @@
                         android:layout_alignParentLeft="true"
                         android:layout_marginStart="70dp"
                         android:layout_marginLeft="70dp"
+                        android:layout_marginTop="30dp"
                         android:onClick="onSaveClick"
                         android:text="@string/save"
                         app:backgroundTint="#69A597" />
@@ -377,6 +399,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
+                        android:layout_marginTop="30dp"
                         android:layout_marginEnd="70dp"
                         android:layout_marginRight="70dp"
                         android:onClick="onCancelClick"
