@@ -1,8 +1,5 @@
 package com.example.project;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.ContextMenu;
@@ -15,21 +12,24 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.TextView;
 import android.widget.Toast;
-import androidx.appcompat.widget.Toolbar;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    //private Toolbar toolbar;
     private RecyclerView mList;
     private UserAdapter mAdapter;
     private TextView mNoReminderView;
     private LinearLayoutManager mLinearLayoutManager;
     private DatabaseHelper userData;
+    private LinkedHashMap<Integer, Integer> IDmap = new LinkedHashMap<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -105,19 +105,45 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public static class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder>{
+    public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder>{
 
-        private final ArrayList<ReminderItem> mData;
+        private ArrayList<ReminderItem> mData;
 
+        /*public UserAdapter(ArrayList<ReminderItem> data) {
+            this.mData = data;
+        }*/
         public UserAdapter() {
             mData = new ArrayList<>();
-        }
+            ArrayList<UserAdapter.ReminderItem> items = new ArrayList<>();
+            List<Reminder> reminders = userData.getAllReminders();
 
-        /*public void setItemCount(int count) {
-            mData.clear();
-            mData.addAll(generateData(count));
-            notifyDataSetChanged();
-        }*/
+            List<String> Titles = new ArrayList<>();
+            List<String> Repeats = new ArrayList<>();
+            List<String> RepeatTime = new ArrayList<>();
+            List<String> Address = new ArrayList<>();
+            List<String> Actives = new ArrayList<>();
+            List<String> DateAndTime = new ArrayList<>();
+            List<Integer> IDList= new ArrayList<>();
+
+            for (Reminder r : reminders) {
+                Titles.add(r.getTitle());
+                DateAndTime.add(r.getDate() + " " + r.getTime());
+                Repeats.add(r.getRepeat());
+                RepeatTime.add(r.getRepeatTime());
+                Address.add(r.getAddress());
+                Actives.add(r.getActive());
+                IDList.add(r.getID());
+            }
+
+            int k = 0;
+            for(int i=0;i<reminders.size();i++){
+                items.add(new UserAdapter.ReminderItem(Titles.get(i), DateAndTime.get(i), Repeats.get(i),
+                        RepeatTime.get(i), Address.get(i), Actives.get(i)));
+                IDmap.put(k, IDList.get(i));
+                k++;
+            }
+            mData = items;
+        }
 
         @NonNull
         @Override
@@ -125,7 +151,6 @@ public class MainActivity extends AppCompatActivity {
 
             View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recycle, parent, false);
 
-            // ViewHolder viewHolder = new ViewHolder(v);
             return new ViewHolder(view, this);
         }
 
@@ -142,26 +167,25 @@ public class MainActivity extends AppCompatActivity {
             return mData.size();
         }
 
-        public static class ReminderItem {
+        public class ReminderItem {
             public String mTitle;
             public String mDateTime;
             public String mRepeat;
             public String mRepeatTime;
-            //public String mRepeatType;
+            public String mAddress;
             public String mActive;
 
-            public ReminderItem(String Title, String DateTime, String Repeat, String RepeatTime, String Active) {
+            public ReminderItem(String Title, String DateTime, String Repeat, String RepeatTime, String Address, String Active) {
                 this.mTitle = Title;
                 this.mDateTime = DateTime;
                 this.mRepeat = Repeat;
                 this.mRepeatTime = RepeatTime;
-                //this.mRepeatType = Repeat;
+                this.mAddress = Address;
                 this.mActive = Active;
             }
         }
 
-        public static class ViewHolder extends RecyclerView.ViewHolder
-                implements View.OnClickListener {
+        public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
             private TextView mTitle;
             private UserAdapter mAdapter;

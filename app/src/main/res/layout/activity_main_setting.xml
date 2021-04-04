@@ -33,14 +33,26 @@
                 android:layout_height="148dp"
                 android:layout_marginBottom="30dp"
                 android:background="#68CAE8"
-                android:orientation="vertical">
+                android:orientation="horizontal">
+
+                <Switch
+                    android:id="@+id/avtive_switch"
+                    android:layout_width="44dp"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="90dp"
+                    android:checked="true"
+                    android:onClick="onSwitchActive"
+                    android:textColorHighlight="@color/teal_700"
+                    android:textColorLink="@color/teal_200" />
 
                 <EditText
                     android:id="@+id/title"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginStart="72dp"
-                    android:layout_marginLeft="72dp"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginLeft="32dp"
                     android:layout_marginTop="30dp"
                     android:layout_marginEnd="16dp"
                     android:layout_marginRight="16dp"
@@ -216,7 +228,8 @@
                         android:layout_marginLeft="8dp"
                         android:layout_marginEnd="16dp"
                         android:layout_marginRight="16dp"
-                        android:checked="true" />
+                        android:checked="true"
+                        android:onClick="onSwitchRepeat" />
 
                 </RelativeLayout>
 
@@ -243,8 +256,8 @@
                         app:srcCompat="@android:drawable/ic_media_pause" />
 
                     <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
                         android:layout_centerVertical="true"
                         android:layout_toEndOf="@id/repeat_time_icon"
                         android:layout_toRightOf="@id/repeat_time_icon"
@@ -252,17 +265,17 @@
 
                         <TextView
                             android:id="@+id/repeat_time_text"
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="@string/repeat_no"
-                            android:textColor="@color/abc_primary_text_material_dark"
-                            android:textSize="15sp" />
+                            android:textColor="@color/black"
+                            android:textSize="28sp" />
 
                         <TextView
                             android:id="@+id/set_repeat_time"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textColor="@color/abc_secondary_text_material_dark"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:textColor="@color/black"
                             android:textSize="15sp" />
 
                     </LinearLayout>
@@ -333,52 +346,6 @@
                 </RelativeLayout>
 
                 <RelativeLayout
-                    android:id="@+id/contact"
-                    android:layout_width="match_parent"
-                    android:layout_height="72dp"
-                    android:onClick="set_Contact">
-
-                    <ImageView
-                        android:id="@+id/contact_icon"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentStart="true"
-                        android:layout_alignParentLeft="true"
-                        android:layout_centerVertical="true"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginLeft="16dp"
-                        android:layout_marginEnd="32dp"
-                        android:layout_marginRight="32dp"
-                        app:srcCompat="@android:drawable/ic_menu_call" />
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_toEndOf="@id/contact_icon"
-                        android:layout_toRightOf="@id/contact_icon"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:id="@+id/menu_contact"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:onClick="set_Contact"
-                            android:text="@string/contact"
-                            android:textColor="@color/black"
-                            android:textSize="28sp" />
-
-                        <TextView
-                            android:id="@+id/set_contact"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:textColor="@color/black"
-                            android:textSize="24sp" />
-
-                    </LinearLayout>
-
-                </RelativeLayout>
-
-                <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
@@ -389,7 +356,7 @@
                         android:layout_alignParentLeft="true"
                         android:layout_marginStart="70dp"
                         android:layout_marginLeft="70dp"
-                        android:layout_marginTop="30dp"
+                        android:layout_marginTop="20dp"
                         android:onClick="onSaveClick"
                         android:text="@string/save"
                         app:backgroundTint="#69A597" />
@@ -399,7 +366,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
-                        android:layout_marginTop="30dp"
+                        android:layout_marginTop="20dp"
                         android:layout_marginEnd="70dp"
                         android:layout_marginRight="70dp"
                         android:onClick="onCancelClick"

@@ -7,28 +7,28 @@ public class Reminder {
     private String mTime;
     private String mRepeat;
     private String mRepeatTime;
-    //private String mRepeatType;
+    private String mAddress;
     private String mActive;
 
 
-    public Reminder(int ID, String Title, String Date, String Time, String Repeat, String RepeatTime, String Active){
+    public Reminder(int ID, String Title, String Date, String Time, String Repeat, String RepeatTime, String Address,String Active){
         mID = ID;
         mTitle = Title;
         mDate = Date;
         mTime = Time;
         mRepeat = Repeat;
         mRepeatTime = RepeatTime;
-        //mRepeatType = RepeatType;
+        mAddress = Address;
         mActive = Active;
     }
 
-    public Reminder(String Title, String Date, String Time, String Repeat, String RepeatTime, String Active){
+    public Reminder(String Title, String Date, String Time, String Repeat, String RepeatTime, String Address, String Active){
         mTitle = Title;
         mDate = Date;
         mTime = Time;
         mRepeat = Repeat;
         mRepeatTime = RepeatTime;
-        //mRepeatType = RepeatType;
+        mAddress = Address;
         mActive = Active;
     }
 
@@ -66,13 +66,13 @@ public class Reminder {
         mTime = time;
     }
 
-    /*public String getRepeatType() {
-        return mRepeatType;
-    }*/
+    public String getAddress() {
+        return mAddress;
+    }
 
-   /* public void setRepeatType(String repeatType) {
-        mRepeatType = repeatType;
-    }*/
+    public void setAddress(String address) {
+        mAddress = address;
+    }
 
     public String getRepeatTime() {
         return mRepeatTime;
