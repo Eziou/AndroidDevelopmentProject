@@ -2,6 +2,7 @@ package com.example.project;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.ActionMode;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -10,6 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -45,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
 
         mList = (RecyclerView) findViewById(R.id.reminder_list);
         mNoReminderView = (TextView) findViewById(R.id.no_reminder_text);
-        // registerForContextMenu(mList);
+        registerForContextMenu(mList);
         mList.setLayoutManager(mLinearLayoutManager);
         mList.setAdapter(mAdapter);
 
@@ -57,6 +59,17 @@ public class MainActivity extends AppCompatActivity {
     }
 
     // On clicking a reminder item
+    public void onEditItem(View view){
+        /*View parentRow = (View) view.getParent();
+        ListView listView = (ListView) parentRow.getParent().getParent();
+        final int position = listView.getPositionForView(parentRow);
+
+        Intent intent = new Intent(getBaseContext(), ReminderEditActivity.class);
+        currentTask = UserAdapter.getItem(position);
+        currentTask.toIntent(intent);
+        startActivityForResult(intent, EDIT_ACTIVITY);*/
+    }
+
     private void selectReminder(int mClickID) {
         String mStringClickID = Integer.toString(mClickID);
 
@@ -67,8 +80,30 @@ public class MainActivity extends AppCompatActivity {
         startActivityForResult(i, 1);
     }
 
+    private void longClickItem(int mClickID) {
+
+    }
+
+    /*public void onDeleteItem(View view){
+        View parentRow = (View) view.getParent();
+        ListView listView = (ListView) parentRow.getParent().getParent();
+        final int position = listView.getPositionForView(parentRow);
+        UserAdapter.removeItemSelected(position);
+    }*/
+
+    /*@Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        mAdapter.setItemCount(getDefaultItemCount());
+    }*/
+
+    private int getDefaultItemCount() {
+        return 100;
+    }
+
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
         getMenuInflater().inflate(R.menu.menu_context, menu);
     }
 
@@ -76,8 +111,9 @@ public class MainActivity extends AppCompatActivity {
     public boolean onContextItemSelected(MenuItem item) {
         AdapterView.AdapterContextMenuInfo info= (AdapterView.AdapterContextMenuInfo)item.getMenuInfo();
         if (item.getItemId()==R.id.delete){
-             /*userData.delete(info.id);
-             chargeData();*/
+            int id = IDmap.get(info.position);
+            Reminder temp = userData.getReminder(id);
+            userData.deleteReminder(temp);
             return true;
         }
         return super.onContextItemSelected(item);
@@ -147,6 +183,17 @@ public class MainActivity extends AppCompatActivity {
             mData = items;
         }
 
+        /*public void setItemCount(int count) {
+            mData.clear();
+            mData.addAll(generateData(count));
+            notifyDataSetChanged();
+        }
+
+        public void onDeleteItem(int count) {
+            mData.clear();
+            mData.addAll(generateData(count));
+        }*/
+
         public void removeItemSelected(int selected) {
             if (mData.isEmpty()) return;
             mData.remove(selected);
@@ -210,16 +257,18 @@ public class MainActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onClick(View v) {
-                /*if (!mMultiSelector.tapSelection(this)) {
-                    mTempPost = mList.getChildAdapterPosition(v);
+            public void onClick(View view) {
+                mTempPost = mList.getChildAdapterPosition(view);
 
-                    int mReminderClickID = IDmap.get(mTempPost);
-                    selectReminder(mReminderClickID);
+                int mReminderClickID = IDmap.get(mTempPost);
+                selectReminder(mReminderClickID);
+            }
 
-                } else if(mMultiSelector.getSelectedPositions().isEmpty()){
-                    mAdapter.setItemCount(getDefaultItemCount());
-                }*/
+            public void onLongClick(View view) {
+                mTempPost = mList.getChildAdapterPosition(view);
+
+                int mReminderClickID = IDmap.get(mTempPost);
+                longClickItem(mReminderClickID);
             }
 
             public void setReminderTitle(String title) {

@@ -51,7 +51,7 @@ public class ReminderAddActivity extends AppCompatActivity {
 
     private int mYear, mMonth, mHour, mMinute, mDay;
     private Calendar cal;
-    private TextView setTitle, setDate, setTime, setRepeat, repeatTime, setAddress, setContact, mRepeatText, mRepeatTimeText;
+    private TextView setTitle, setDate, setTime, repeatTime, setAddress, setContact, mRepeatText, mRepeatTimeText;
     private String mDate, mTime, mTitle, mActive;
     private String mRepeat, mRepeatTime, mAddress;
     private DatePickerDialog.OnDateSetListener onDate;
@@ -67,13 +67,11 @@ public class ReminderAddActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_setting);
 
-        //toolbar = findViewById(R.id.toolbar);
         setTitle = findViewById(R.id.title);
         setDate = findViewById(R.id.set_date);
         setTime = findViewById(R.id.set_time);
         mRepeatText = findViewById(R.id.set_repeat);
         repeatTime = findViewById(R.id.set_repeat_time);
-        // repeatType = findViewById(R.id.set_repeat_type);
         setAddress = findViewById(R.id.set_address);
         //setContact = findViewById(R.id.set_contact);
 
@@ -87,10 +85,13 @@ public class ReminderAddActivity extends AppCompatActivity {
         mDate = mDay + "/" + mMonth + "/" + mYear;
         mTime = mHour + ":" + mMinute;
 
+        mActive = "true";
+        mRepeat = "true";
+
         //adapter = new SimpleCursorAdapter(this, R.layout.activity_view_record, null, from, to, 0);
         //listView.setAdapter(adapter);
 
-        CreateNotificationChannel();
+        //CreateNotificationChannel();
         setTitle.addTextChangedListener(new TextWatcher() {
 
             @Override
@@ -105,6 +106,21 @@ public class ReminderAddActivity extends AppCompatActivity {
             @Override
             public void afterTextChanged(Editable s) {}
         });
+
+        setAddress.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                mAddress = s.toString().trim();
+                setAddress.setError(null);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {}
+        });
+
         onDate = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
@@ -219,6 +235,7 @@ public class ReminderAddActivity extends AppCompatActivity {
         //if (mapIntent.resolveActivity(getPackageManager()) != null) {
             startActivity(mapIntent);
         //}
+
     }
 
     // click save button
@@ -245,7 +262,6 @@ public class ReminderAddActivity extends AppCompatActivity {
                 new AlarmReceiver().setAlarm(getApplicationContext(), cal, ID);
             }
         }
-
         // Create toast to confirm new reminder
         Toast.makeText(getApplicationContext(), "Saved",
                 Toast.LENGTH_SHORT).show();
@@ -253,7 +269,7 @@ public class ReminderAddActivity extends AppCompatActivity {
         onBackPressed();
     }
 
-    private void CreateNotificationChannel() {
+    /*private void CreateNotificationChannel() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             CharSequence name = "Notification channel name";
             int importance = NotificationManager.IMPORTANCE_DEFAULT;
@@ -278,7 +294,7 @@ public class ReminderAddActivity extends AppCompatActivity {
                 .setContentIntent(pendingIntent);
         // notificationId : unique identifier to define
         notificationManager.notify(NOTIFICATION_ID, notifBuilder.build());
-    }
+    }*/
 
     // click cancel button
     public void onCancelClick(View view) {

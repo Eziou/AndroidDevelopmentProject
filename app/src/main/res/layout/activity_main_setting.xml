@@ -36,7 +36,7 @@
                 android:orientation="horizontal">
 
                 <Switch
-                    android:id="@+id/avtive_switch"
+                    android:id="@+id/active_switch"
                     android:layout_width="44dp"
                     android:layout_height="40dp"
                     android:layout_marginStart="10dp"
