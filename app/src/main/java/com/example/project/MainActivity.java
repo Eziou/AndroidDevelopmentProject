@@ -29,7 +29,9 @@ public class MainActivity extends AppCompatActivity {
     private TextView mNoReminderView;
     private LinearLayoutManager mLinearLayoutManager;
     private DatabaseHelper userData;
+    private int mTempPost;
     private LinkedHashMap<Integer, Integer> IDmap = new LinkedHashMap<>();
+    private AlarmReceiver mAlarmReceiver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,8 +76,8 @@ public class MainActivity extends AppCompatActivity {
     public boolean onContextItemSelected(MenuItem item) {
         AdapterView.AdapterContextMenuInfo info= (AdapterView.AdapterContextMenuInfo)item.getMenuInfo();
         if (item.getItemId()==R.id.delete){
-            // myHelper.delete(info.id);
-            // chargeData();
+             /*userData.delete(info.id);
+             chargeData();*/
             return true;
         }
         return super.onContextItemSelected(item);
@@ -145,6 +147,12 @@ public class MainActivity extends AppCompatActivity {
             mData = items;
         }
 
+        public void removeItemSelected(int selected) {
+            if (mData.isEmpty()) return;
+            mData.remove(selected);
+            notifyItemRemoved(selected);
+        }
+
         @NonNull
         @Override
         public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -203,7 +211,15 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
+                /*if (!mMultiSelector.tapSelection(this)) {
+                    mTempPost = mList.getChildAdapterPosition(v);
 
+                    int mReminderClickID = IDmap.get(mTempPost);
+                    selectReminder(mReminderClickID);
+
+                } else if(mMultiSelector.getSelectedPositions().isEmpty()){
+                    mAdapter.setItemCount(getDefaultItemCount());
+                }*/
             }
 
             public void setReminderTitle(String title) {
