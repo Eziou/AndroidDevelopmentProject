@@ -59,17 +59,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     // On clicking a reminder item
-    public void onEditItem(View view){
-        /*View parentRow = (View) view.getParent();
-        ListView listView = (ListView) parentRow.getParent().getParent();
-        final int position = listView.getPositionForView(parentRow);
-
-        Intent intent = new Intent(getBaseContext(), ReminderEditActivity.class);
-        currentTask = UserAdapter.getItem(position);
-        currentTask.toIntent(intent);
-        startActivityForResult(intent, EDIT_ACTIVITY);*/
-    }
-
     private void selectReminder(int mClickID) {
         String mStringClickID = Integer.toString(mClickID);
 
@@ -80,43 +69,36 @@ public class MainActivity extends AppCompatActivity {
         startActivityForResult(i, 1);
     }
 
-    private void longClickItem(int mClickID) {
-
-    }
-
+    // delete a reminder
     /*public void onDeleteItem(View view){
-        View parentRow = (View) view.getParent();
-        ListView listView = (ListView) parentRow.getParent().getParent();
-        final int position = listView.getPositionForView(parentRow);
-        UserAdapter.removeItemSelected(position);
+
     }*/
 
-    /*@Override
+    @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         mAdapter.setItemCount(getDefaultItemCount());
-    }*/
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+
+        // To check is there are saved reminders
+        // If there are no reminders display a message asking the user to create reminders
+        List<Reminder> mTest = userData.getAllReminders();
+
+        if (mTest.isEmpty()) {
+            mNoReminderView.setVisibility(View.VISIBLE);
+        } else {
+            mNoReminderView.setVisibility(View.GONE);
+        }
+
+        mAdapter.setItemCount(getDefaultItemCount());
+    }
 
     private int getDefaultItemCount() {
         return 100;
-    }
-
-    @Override
-    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
-        super.onCreateContextMenu(menu, v, menuInfo);
-        getMenuInflater().inflate(R.menu.menu_context, menu);
-    }
-
-    @Override
-    public boolean onContextItemSelected(MenuItem item) {
-        AdapterView.AdapterContextMenuInfo info= (AdapterView.AdapterContextMenuInfo)item.getMenuInfo();
-        if (item.getItemId()==R.id.delete){
-            int id = IDmap.get(info.position);
-            Reminder temp = userData.getReminder(id);
-            userData.deleteReminder(temp);
-            return true;
-        }
-        return super.onContextItemSelected(item);
     }
 
     @Override
@@ -134,9 +116,12 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
                 return true;
             }
-            case R.id.search: {
+            case R.id.theme: {
                 Toast.makeText(this, "Search", Toast.LENGTH_LONG).show();
                 return true;
+            }
+            case R.id.language: {
+
             }
             default:
                 return super.onOptionsItemSelected(item);
@@ -183,13 +168,13 @@ public class MainActivity extends AppCompatActivity {
             mData = items;
         }
 
-        /*public void setItemCount(int count) {
-            mData.clear();
-            mData.addAll(generateData(count));
+        public void setItemCount(int count) {
+            /*mData.clear();
+            mData.addAll(mData);*/
             notifyDataSetChanged();
         }
 
-        public void onDeleteItem(int count) {
+        /*public void onDeleteItem(int count) {
             mData.clear();
             mData.addAll(generateData(count));
         }*/
@@ -262,13 +247,6 @@ public class MainActivity extends AppCompatActivity {
 
                 int mReminderClickID = IDmap.get(mTempPost);
                 selectReminder(mReminderClickID);
-            }
-
-            public void onLongClick(View view) {
-                mTempPost = mList.getChildAdapterPosition(view);
-
-                int mReminderClickID = IDmap.get(mTempPost);
-                longClickItem(mReminderClickID);
             }
 
             public void setReminderTitle(String title) {

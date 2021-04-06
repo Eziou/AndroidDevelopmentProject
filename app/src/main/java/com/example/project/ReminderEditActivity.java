@@ -48,6 +48,7 @@ public class ReminderEditActivity extends AppCompatActivity {
     private String[] mDateSplit;
     private String[] mTimeSplit;
     public static final String EXTRA_REMINDER_ID = "Reminder_ID";
+    private static final long milDay = 86400000L;
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -147,6 +148,7 @@ public class ReminderEditActivity extends AppCompatActivity {
                 mMonth = month;
                 mDay = dayOfMonth;
                 setDate.setText(new StringBuilder().append(mMonth + 1).append("-").append(mDay).append("-").append(mYear).append(" "));
+                mDate = mDay + "/" + (mMonth+1) + "/" + mYear;
             }
         };
 
@@ -156,6 +158,11 @@ public class ReminderEditActivity extends AppCompatActivity {
                 mHour = hourOfDay;
                 mMinute = minute;
                 setTime.setText(new StringBuilder().append(mHour).append(":").append(mMinute));
+                if (minute < 10) {
+                    mTime = mHour + ":" + "0" + mMinute;
+                } else {
+                    mTime = mHour + ":" + mMinute;
+                }
             }
         };
     }
@@ -274,6 +281,7 @@ public class ReminderEditActivity extends AppCompatActivity {
 
         // Cancel existing notification of the reminder by using its ID
         mAlarmReceiver.cancelAlarm(getApplicationContext(), mReceivedID);
+        mRepeatLast = Integer.parseInt(mRepeatTime) * milDay;
 
         // Create a new notification
         if (mActive.equals("true")) {

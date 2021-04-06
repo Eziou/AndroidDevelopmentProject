@@ -285,8 +285,7 @@
                 <RelativeLayout
                     android:id="@+id/address"
                     android:layout_width="match_parent"
-                    android:layout_height="85dp"
-                    android:onClick="set_Address">
+                    android:layout_height="85dp">
 
                     <ImageView
                         android:id="@+id/address_icon"
@@ -337,7 +336,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:onClick="launchMaps"
-                                android:text="Maps"
+                                android:text="@string/maps"
                                 android:textSize="10sp"
                                 app:backgroundTint="#989595" />
                         </LinearLayout>
