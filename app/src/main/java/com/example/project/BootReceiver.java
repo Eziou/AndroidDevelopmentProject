@@ -15,7 +15,7 @@ public class BootReceiver extends BroadcastReceiver {
     private String mRepeatTime;
     //private String mRepeatType;
     private String mActive;
-    private String mRepeat;
+    private String mRepeat, mAddress;
     private String[] mDateSplit;
     private String[] mTimeSplit;
     private int mYear, mMonth, mHour, mMinute, mDay, mReceivedID;
@@ -46,7 +46,7 @@ public class BootReceiver extends BroadcastReceiver {
                 mReceivedID = rm.getID();
                 mRepeat = rm.getRepeat();
                 mRepeatTime = rm.getRepeatTime();
-                //mRepeatType = rm.getRepeatType();
+                mAddress = rm.getAddress();
                 mActive = rm.getActive();
                 mDate = rm.getDate();
                 mTime = rm.getTime();
@@ -82,6 +82,8 @@ public class BootReceiver extends BroadcastReceiver {
                 } else if (mRepeatType.equals("Month")) {
                     mRepeatTime = Integer.parseInt(mRepeatNo) * milMonth;
                 }*/
+
+                mRepeatLast = Integer.parseInt(mRepeatTime) * milDay;
 
                 // Create a new notification
                 if (mActive.equals("true")) {

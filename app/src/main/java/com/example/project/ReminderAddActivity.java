@@ -57,6 +57,7 @@ public class ReminderAddActivity extends AppCompatActivity {
     private DatePickerDialog.OnDateSetListener onDate;
     private TimePickerDialog.OnTimeSetListener onTime;
     private long mRepeatLast;
+    private static final long milDay = 86400000L;
     static String CHANNEL_ID= "channel_01";
     static int NOTIFICATION_ID=100;
     static int REQUEST_CODE= 200;
@@ -128,6 +129,7 @@ public class ReminderAddActivity extends AppCompatActivity {
                 mMonth = month;
                 mDay = dayOfMonth;
                 setDate.setText(new StringBuilder().append(mMonth+1). append("-").append(mDay).append("-").append(mYear).append(" "));
+                mDate = mDay + "/" + (mMonth+1) + "/" + mYear;
             }
         };
 
@@ -137,6 +139,11 @@ public class ReminderAddActivity extends AppCompatActivity {
                 mHour = hourOfDay;
                 mMinute = minute;
                 setTime.setText(new StringBuilder().append(mHour). append(":").append(mMinute));
+                if (minute < 10) {
+                    mTime = mHour + ":" + "0" + mMinute;
+                } else {
+                    mTime = mHour + ":" + mMinute;
+                }
             }
         };
 
@@ -253,6 +260,8 @@ public class ReminderAddActivity extends AppCompatActivity {
         cal.set(Calendar.HOUR_OF_DAY, mHour);
         cal.set(Calendar.MINUTE, mMinute);
         cal.set(Calendar.SECOND, 0);
+
+        mRepeatLast = Integer.parseInt(mRepeatTime) * milDay;
 
         // Create a new notification
         if (mActive.equals("true")) {
