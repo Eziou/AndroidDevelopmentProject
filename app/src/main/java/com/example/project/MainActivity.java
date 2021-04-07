@@ -1,7 +1,16 @@
 package com.example.project;
 
+import android.annotation.TargetApi;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
+import android.content.res.Resources;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.LocaleList;
+import android.util.Log;
 import android.view.ActionMode;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
@@ -23,9 +32,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
 
+    private static final String CHANNEL_ID = "channel_01";
     private RecyclerView mList;
     private UserAdapter mAdapter;
     private TextView mNoReminderView;
@@ -40,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        createNotificationChannel();
         userData = new DatabaseHelper(getApplicationContext());
 
         mLinearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
@@ -48,6 +60,8 @@ public class MainActivity extends AppCompatActivity {
         mList = (RecyclerView) findViewById(R.id.reminder_list);
         mNoReminderView = (TextView) findViewById(R.id.no_reminder_text);
         registerForContextMenu(mList);
+        //mAdapter.setItemCount();
+        //mAdapter.notifyDataSetChanged();
         mList.setLayoutManager(mLinearLayoutManager);
         mList.setAdapter(mAdapter);
 
@@ -56,6 +70,7 @@ public class MainActivity extends AppCompatActivity {
         if (mTest.isEmpty()) {
             mNoReminderView.setVisibility(View.VISIBLE);
         }
+        mAlarmReceiver = new AlarmReceiver();
     }
 
     // On clicking a reminder item
@@ -67,34 +82,6 @@ public class MainActivity extends AppCompatActivity {
         Intent i = new Intent(this, ReminderEditActivity.class);
         i.putExtra(ReminderEditActivity.EXTRA_REMINDER_ID, mStringClickID);
         startActivityForResult(i, 1);
-    }
-
-    // delete a reminder
-    /*public void onDeleteItem(View view){
-
-    }*/
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        mAdapter.setItemCount(getDefaultItemCount());
-    }
-
-    @Override
-    public void onResume(){
-        super.onResume();
-
-        // To check is there are saved reminders
-        // If there are no reminders display a message asking the user to create reminders
-        List<Reminder> mTest = userData.getAllReminders();
-
-        if (mTest.isEmpty()) {
-            mNoReminderView.setVisibility(View.VISIBLE);
-        } else {
-            mNoReminderView.setVisibility(View.GONE);
-        }
-
-        mAdapter.setItemCount(getDefaultItemCount());
     }
 
     private int getDefaultItemCount() {
@@ -117,7 +104,7 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
             case R.id.theme: {
-                Toast.makeText(this, "Search", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, "Theme changed", Toast.LENGTH_LONG).show();
                 return true;
             }
             case R.id.language: {
@@ -132,12 +119,9 @@ public class MainActivity extends AppCompatActivity {
 
         private ArrayList<ReminderItem> mData;
 
-        /*public UserAdapter(ArrayList<ReminderItem> data) {
-            this.mData = data;
-        }*/
         public UserAdapter() {
             mData = new ArrayList<>();
-            ArrayList<UserAdapter.ReminderItem> items = new ArrayList<>();
+            ArrayList<ReminderItem> items = new ArrayList<>();
             List<Reminder> reminders = userData.getAllReminders();
 
             List<String> Titles = new ArrayList<>();
@@ -168,9 +152,25 @@ public class MainActivity extends AppCompatActivity {
             mData = items;
         }
 
-        public void setItemCount(int count) {
-            /*mData.clear();
-            mData.addAll(mData);*/
+        /*public void setItemCount() {
+            items.clear();
+            items.addAll(mData);
+            notifyDataSetChanged();
+        }*/
+
+        public void addItem(ReminderItem reminder){
+            mData.add(reminder);
+            notifyDataSetChanged();
+        }
+
+        public void removeItem(int customer){
+            mData.remove(customer);
+            notifyDataSetChanged();
+        }
+
+        public void setItemCount(ArrayList<ReminderItem> mItems) {
+            mData.clear();
+            mData.addAll(mItems);
             notifyDataSetChanged();
         }
 
@@ -264,6 +264,21 @@ public class MainActivity extends AppCompatActivity {
                     mRepeat.setText("Repeat Off");
                 }
             }
+        }
+    }
+    private void createNotificationChannel() {
+        // Create the NotificationChannel, but only on API 26+ because
+        // the NotificationChannel class is new and not in the support library
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            CharSequence name = getString(R.string.channel_name);
+            String description = getString(R.string.channel_description);
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            NotificationChannel channel = new NotificationChannel(CHANNEL_ID, name, importance);
+            channel.setDescription(description);
+            // Register the channel with the system; you can't change the importance
+            // or other notification behaviors after this
+            NotificationManager notificationManager = getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
         }
     }
 }

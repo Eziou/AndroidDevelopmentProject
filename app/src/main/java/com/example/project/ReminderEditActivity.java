@@ -295,7 +295,8 @@ public class ReminderEditActivity extends AppCompatActivity {
         // Create toast to confirm update
         Toast.makeText(getApplicationContext(), "Edited",
                 Toast.LENGTH_SHORT).show();
-        onBackPressed();
+        Intent intent=new Intent(this,MainActivity.class);
+        startActivity(intent);
     }
 
     /*private void CreateNotificationChannel() {

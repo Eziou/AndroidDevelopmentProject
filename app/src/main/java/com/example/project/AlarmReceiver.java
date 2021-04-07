@@ -1,8 +1,10 @@
 package com.example.project;
 
 import android.app.AlarmManager;
+import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -12,21 +14,26 @@ import android.media.RingtoneManager;
 import android.os.SystemClock;
 
 import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 import androidx.legacy.content.WakefulBroadcastReceiver;
 
 import java.util.Calendar;
 
-public class AlarmReceiver extends WakefulBroadcastReceiver {
+import static androidx.core.app.NotificationCompat.PRIORITY_DEFAULT;
+import static com.example.project.ReminderAddActivity.CHANNEL_ID;
+
+public class AlarmReceiver extends BroadcastReceiver {
     AlarmManager mAlarmManager;
     PendingIntent mPendingIntent;
+    String CHANNEL_ID= "channel_01";
 
     @Override
     public void onReceive(Context context, Intent intent) {
         int mReceivedID = Integer.parseInt(intent.getStringExtra(ReminderEditActivity.EXTRA_REMINDER_ID));
 
         // Get notification title from Reminder Database
-        DatabaseHelper rb = new DatabaseHelper(context);
-        Reminder reminder = rb.getReminder(mReceivedID);
+        DatabaseHelper userData = new DatabaseHelper(context);
+        Reminder reminder = userData.getReminder(mReceivedID);
         String mTitle = reminder.getTitle();
 
         // Create intent to open ReminderEditActivity on notification click
@@ -35,8 +42,8 @@ public class AlarmReceiver extends WakefulBroadcastReceiver {
         PendingIntent mClick = PendingIntent.getActivity(context, mReceivedID, editIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         // Create Notification
-        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(context)
-                .setLargeIcon(BitmapFactory.decodeResource(context.getResources(), R.mipmap.ic_launcher))
+        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(context, CHANNEL_ID)
+                //.setLargeIcon(BitmapFactory.decodeResource(context.getResources(), R.mipmap.ic_launcher))
                 .setSmallIcon(R.drawable.ic_alarm_on_white_24dp)
                 .setContentTitle(context.getResources().getString(R.string.app_name))
                 .setTicker(mTitle)
@@ -44,7 +51,8 @@ public class AlarmReceiver extends WakefulBroadcastReceiver {
                 .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
                 .setContentIntent(mClick)
                 .setAutoCancel(true)
-                .setOnlyAlertOnce(true);
+                .setOnlyAlertOnce(true)
+                .setPriority(PRIORITY_DEFAULT);
 
         NotificationManager nManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         nManager.notify(mReceivedID, mBuilder.build());

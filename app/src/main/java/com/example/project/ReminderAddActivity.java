@@ -146,7 +146,6 @@ public class ReminderAddActivity extends AppCompatActivity {
                 }
             }
         };
-
         //requestPermissions();
     }
 
@@ -275,35 +274,10 @@ public class ReminderAddActivity extends AppCompatActivity {
         Toast.makeText(getApplicationContext(), "Saved",
                 Toast.LENGTH_SHORT).show();
 
-        onBackPressed();
+        //onBackPressed();
+        Intent intent=new Intent(this,MainActivity.class);
+        startActivity(intent);
     }
-
-    /*private void CreateNotificationChannel() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            CharSequence name = "Notification channel name";
-            int importance = NotificationManager.IMPORTANCE_DEFAULT;
-            NotificationChannel channel = new NotificationChannel(CHANNEL_ID, name, importance);
-            channel.setDescription("Notification channel description");
-            // register the channel
-            NotificationManager notificationManager = getSystemService(NotificationManager.class);
-            notificationManager.createNotificationChannel(channel);
-        }
-    }
-
-    public void showNotification(View view) {
-        Intent intent= new Intent(this, MainActivity.class);
-        PendingIntent pendingIntent=
-                PendingIntent.getActivity(this,REQUEST_CODE,intent,PendingIntent.FLAG_ONE_SHOT);
-        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
-        NotificationCompat.Builder notifBuilder = new NotificationCompat.Builder(this, CHANNEL_ID)
-                .setSmallIcon(R.drawable.ic_launcher_foreground)
-                .setContentTitle("Titre")
-                .setContentText("Contenu")
-                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-                .setContentIntent(pendingIntent);
-        // notificationId : unique identifier to define
-        notificationManager.notify(NOTIFICATION_ID, notifBuilder.build());
-    }*/
 
     // click cancel button
     public void onCancelClick(View view) {
