@@ -23,7 +23,5 @@
     <string name="repeat_on">On</string>
     <string name="theme">Theme</string>
     <string name="language">Français</string>
-    <string name="maps">Maps</string>
-    <string name="channel_name">channel</string>
-    <string name="channel_description">description</string>
+    <string name="map">Map</string>
 </resources>
