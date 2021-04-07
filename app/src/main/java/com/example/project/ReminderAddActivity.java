@@ -34,6 +34,7 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationCompat;
@@ -66,13 +67,14 @@ public class ReminderAddActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
         setContentView(R.layout.activity_main_setting);
 
         setTitle = findViewById(R.id.title);
         setDate = findViewById(R.id.set_date);
         setTime = findViewById(R.id.set_time);
-        mRepeatText = findViewById(R.id.set_repeat);
-        repeatTime = findViewById(R.id.set_repeat_time);
+/*        mRepeatText = findViewById(R.id.set_repeat);
+        repeatTime = findViewById(R.id.set_repeat_time);*/
         setAddress = findViewById(R.id.set_address);
         //setContact = findViewById(R.id.set_contact);
 

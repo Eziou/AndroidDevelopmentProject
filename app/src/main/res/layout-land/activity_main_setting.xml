@@ -7,11 +7,13 @@
     tools:context=".ReminderAddActivity">
 
     <RelativeLayout
+        android:background="?android:attr/selectableItemBackground"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#F5F6F8"
-        tools:layout_editor_absoluteX="130dp"
-        tools:layout_editor_absoluteY="185dp">
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <!--<androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
@@ -36,9 +38,9 @@
                 android:orientation="horizontal">
 
                 <Switch
-                    android:id="@+id/avtive_switch"
-                    android:layout_width="44dp"
-                    android:layout_height="40dp"
+                    android:id="@+id/active_switch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
                     android:layout_marginLeft="10dp"
                     android:layout_marginTop="90dp"
@@ -80,6 +82,30 @@
                 android:orientation="vertical">
 
                 <RelativeLayout
+                    android:id="@+id/contact"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/menu_contact"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/contact"
+                            android:textSize="28sp" />
+
+                        <TextView
+                            android:id="@+id/set_contact"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+                    </LinearLayout>
+                </RelativeLayout>
+
+                <RelativeLayout
                     android:id="@+id/date"
                     android:layout_width="match_parent"
                     android:layout_height="72dp"
@@ -118,14 +144,12 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="@string/date"
-                            android:textColor="@color/black"
                             android:textSize="28sp" />
 
                         <TextView
                             android:id="@+id/set_date"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:textColor="@color/black"
+                            android:layout_height="wrap_content"
                             android:textSize="24sp" />
                     </LinearLayout>
                 </RelativeLayout>
@@ -163,20 +187,18 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="@string/time"
-                            android:textColor="@color/black"
                             android:textSize="28sp" />
 
                         <TextView
                             android:id="@+id/set_time"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:textColor="@color/black"
                             android:textSize="24sp" />
                     </LinearLayout>
 
                 </RelativeLayout>
 
-                <RelativeLayout
+                <!--                <RelativeLayout
                     android:id="@+id/repeat"
                     android:layout_width="match_parent"
                     android:layout_height="72dp">
@@ -231,9 +253,9 @@
                         android:checked="true"
                         android:onClick="onSwitchRepeat" />
 
-                </RelativeLayout>
+                </RelativeLayout>-->
 
-                <RelativeLayout
+                <!--                <RelativeLayout
                     android:id="@+id/RepeatTime"
                     android:layout_width="match_parent"
                     android:layout_height="72dp"
@@ -280,13 +302,12 @@
 
                     </LinearLayout>
 
-                </RelativeLayout>
+                </RelativeLayout>-->
 
                 <RelativeLayout
                     android:id="@+id/address"
                     android:layout_width="match_parent"
-                    android:layout_height="85dp"
-                    android:onClick="set_Address">
+                    android:layout_height="wrap_content">
 
                     <ImageView
                         android:id="@+id/address_icon"
@@ -313,7 +334,6 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="@string/address"
-                            android:textColor="@color/black"
                             android:textSize="28sp" />
 
                         <LinearLayout
@@ -323,22 +343,23 @@
 
                             <EditText
                                 android:id="@+id/set_address"
-                                android:layout_width="267dp"
+                                android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="start"
+                                android:layout_weight="0.8"
                                 android:autofillHints=""
                                 android:inputType="textMultiLine"
                                 android:scrollbars="vertical"
-                                android:textColor="@color/black"
                                 android:textSize="24sp" />
 
                             <Button
                                 android:id="@+id/GoogleMaps"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:layout_weight="0.1"
                                 android:onClick="launchMaps"
-                                android:text="Maps"
-                                android:textSize="10sp"
+                                android:text="@string/map"
+                                android:textSize="12sp"
                                 app:backgroundTint="#989595" />
                         </LinearLayout>
 

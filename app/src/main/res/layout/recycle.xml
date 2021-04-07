@@ -4,8 +4,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="?android:attr/selectableItemBackground"
     android:layout_height="86dp">
+<!--    android:background="?android:attr/selectableItemBackground"-->
+
 
     <ImageView android:layout_width="40dp"
         android:layout_height="40dp"
@@ -32,7 +33,6 @@
             android:layout_height="wrap_content"
             android:ellipsize="end"
             android:maxLines="2"
-            android:textColor="@color/black"
             android:textSize="16sp"
             tools:text="Title" />
 
@@ -42,7 +42,6 @@
             android:layout_height="wrap_content"
             android:ellipsize="marquee"
             android:singleLine="true"
-            android:textColor="@color/black"
             android:textSize="13sp"
             tools:text="Date and Time" />
 
@@ -52,7 +51,6 @@
             android:layout_height="wrap_content"
             android:ellipsize="marquee"
             android:singleLine="true"
-            android:textColor="@color/black"
             android:textSize="13sp"
             tools:text="Repeat No and Type" />
 

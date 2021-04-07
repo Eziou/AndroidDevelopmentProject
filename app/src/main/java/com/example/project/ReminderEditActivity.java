@@ -25,6 +25,7 @@ import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
@@ -54,16 +55,17 @@ public class ReminderEditActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
         setContentView(R.layout.activity_main_setting);
 
         setTitle = findViewById(R.id.title);
         setDate = findViewById(R.id.set_date);
         setTime = findViewById(R.id.set_time);
-        mRepeatText = findViewById(R.id.set_repeat);
-        repeatTime = findViewById(R.id.set_repeat_time);
+/*        mRepeatText = findViewById(R.id.set_repeat);
+        repeatTime = findViewById(R.id.set_repeat_time);*/
         setAddress = findViewById(R.id.set_address);
         setActive = findViewById(R.id.active_switch);
-        setRepeat = findViewById(R.id.repeat_switch);
+//        setRepeat = findViewById(R.id.repeat_switch);
 
         mReceivedID = Integer.parseInt(getIntent().getStringExtra(EXTRA_REMINDER_ID));
         userData = new DatabaseHelper(this);

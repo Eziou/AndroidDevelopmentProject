@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -38,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
         setContentView(R.layout.activity_main);
 
         userData = new DatabaseHelper(getApplicationContext());
@@ -199,7 +201,7 @@ public class MainActivity extends AppCompatActivity {
             ReminderItem item = mData.get(position);
             holder.setReminderTitle(item.mTitle);
             holder.setReminderTime(item.mDateTime);
-            holder.setReminderRepeat(item.mRepeat, item.mRepeatTime);
+//            holder.setReminderRepeat(item.mRepeat, item.mRepeatTime);
         }
 
         @Override
@@ -257,13 +259,12 @@ public class MainActivity extends AppCompatActivity {
                 mTime.setText(time);
             }
 
-            public void setReminderRepeat(String repeat, String RepeatTime) {
+/*            public void setReminderRepeat(String repeat, String RepeatTime) {
                 if(repeat.equals("true")){
                     mRepeat.setText("Every " + RepeatTime + " Days " + "(s)");
                 }else if (repeat.equals("false")) {
-                    mRepeat.setText("Repeat Off");
-                }
-            }
+                    mRepeat.setText("Repeat Off");*/
+//                }
         }
     }
 }

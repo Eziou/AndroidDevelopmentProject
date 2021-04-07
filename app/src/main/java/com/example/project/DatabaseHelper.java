@@ -28,6 +28,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String KEY_REPEAT_TIME = "repeat_time";
     private static final String KEY_ADDRESS = "address";
     private static final String KEY_ACTIVE = "active";
+    private static final String KEY_CONTACT = "contact";
 
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
