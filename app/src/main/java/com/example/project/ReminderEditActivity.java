@@ -297,6 +297,13 @@ public class ReminderEditActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void onDelClick(View view){
+        userData.deleteReminder(mReceivedReminder);
+        Toast.makeText(getApplicationContext(), "Deleted",
+                Toast.LENGTH_SHORT).show();
+        Intent intent=new Intent(this,MainActivity.class);
+        startActivity(intent);
+    }
 
     // click cancel button
     public void onCancelClick(View view) {
@@ -308,10 +315,8 @@ public class ReminderEditActivity extends AppCompatActivity {
         boolean active = ((Switch) view).isChecked();
         if (active) {
             mActive = "true";
-            //mRepeatText.setText(R.string.repeat_on);
         } else {
             mActive = "false";
-            //mRepeatText.setText(R.string.repeat_off);
         }
     }
 }

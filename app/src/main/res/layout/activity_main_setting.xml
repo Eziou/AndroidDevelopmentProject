@@ -259,12 +259,24 @@
                     android:layout_height="match_parent">
 
                     <Button
+                        android:id="@+id/delete_reminder"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_marginStart="160dp"
+                        android:layout_marginLeft="160dp"
+                        android:layout_marginTop="20dp"
+                        android:onClick="onDelClick"
+                        android:text="@string/delete"
+                        app:backgroundTint="#69A597" />
+
+                    <Button
                         android:id="@+id/save"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentLeft="true"
-                        android:layout_marginStart="70dp"
-                        android:layout_marginLeft="70dp"
+                        android:layout_marginStart="50dp"
+                        android:layout_marginLeft="50dp"
                         android:layout_marginTop="20dp"
                         android:onClick="onSaveClick"
                         android:text="@string/save"
@@ -276,8 +288,8 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:layout_marginTop="20dp"
-                        android:layout_marginEnd="70dp"
-                        android:layout_marginRight="70dp"
+                        android:layout_marginEnd="50dp"
+                        android:layout_marginRight="50dp"
                         android:onClick="onCancelClick"
                         android:text="@android:string/cancel"
                         app:backgroundTint="#69A597" />

@@ -279,6 +279,10 @@ public class ReminderAddActivity extends AppCompatActivity{
         //super.onBackPressed();
     }
 
+    public void onDelClick(View view){
+        finish();
+    }
+
     public void onSwitchActive(View view) {
         boolean active = ((Switch) view).isChecked();
         if (active) {
