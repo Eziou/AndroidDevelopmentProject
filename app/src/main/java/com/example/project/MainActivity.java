@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
         setContentView(R.layout.activity_main);
 
-        createNotificationChannel();
+//        createNotificationChannel();
         userData = new DatabaseHelper(getApplicationContext());
 
         mLinearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
@@ -99,22 +99,12 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch(item.getItemId()){
-            case R.id.new_reminder:{
-                Intent intent=new Intent(this,ReminderAddActivity.class);
-                startActivity(intent);
-                return true;
-            }
-            case R.id.theme: {
-                Toast.makeText(this, "Theme changed", Toast.LENGTH_LONG).show();
-                return true;
-            }
-            case R.id.language: {
-
-            }
-            default:
-                return super.onOptionsItemSelected(item);
+        if (item.getItemId() == R.id.new_reminder) {
+            Intent intent = new Intent(this, ReminderAddActivity.class);
+            startActivity(intent);
+            return true;
         }
+        return super.onOptionsItemSelected(item);
     }
 
     public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder>{
@@ -127,8 +117,6 @@ public class MainActivity extends AppCompatActivity {
             List<Reminder> reminders = userData.getAllReminders();
 
             List<String> Titles = new ArrayList<>();
-            List<String> Repeats = new ArrayList<>();
-            List<String> RepeatTime = new ArrayList<>();
             List<String> Address = new ArrayList<>();
             List<String> Actives = new ArrayList<>();
             List<String> DateAndTime = new ArrayList<>();
@@ -137,8 +125,6 @@ public class MainActivity extends AppCompatActivity {
             for (Reminder r : reminders) {
                 Titles.add(r.getTitle());
                 DateAndTime.add(r.getDate() + " " + r.getTime());
-                Repeats.add(r.getRepeat());
-                RepeatTime.add(r.getRepeatTime());
                 Address.add(r.getAddress());
                 Actives.add(r.getActive());
                 IDList.add(r.getID());
@@ -146,20 +132,14 @@ public class MainActivity extends AppCompatActivity {
 
             int k = 0;
             for(int i=0;i<reminders.size();i++){
-                items.add(new UserAdapter.ReminderItem(Titles.get(i), DateAndTime.get(i), Repeats.get(i),
-                        RepeatTime.get(i), Address.get(i), Actives.get(i)));
+                items.add(new UserAdapter.ReminderItem(Titles.get(i), DateAndTime.get(i), Address.get(i), Actives.get(i)));
                 IDmap.put(k, IDList.get(i));
                 k++;
             }
             mData = items;
         }
 
-        /*public void setItemCount() {
-            items.clear();
-            items.addAll(mData);
-            notifyDataSetChanged();
-        }*/
-
+/*
         public void addItem(ReminderItem reminder){
             mData.add(reminder);
             notifyDataSetChanged();
@@ -176,16 +156,19 @@ public class MainActivity extends AppCompatActivity {
             notifyDataSetChanged();
         }
 
-        /*public void onDeleteItem(int count) {
+        */
+/*public void onDeleteItem(int count) {
             mData.clear();
             mData.addAll(generateData(count));
-        }*/
+        }*//*
+
 
         public void removeItemSelected(int selected) {
             if (mData.isEmpty()) return;
             mData.remove(selected);
             notifyItemRemoved(selected);
         }
+*/
 
         @NonNull
         @Override
@@ -212,16 +195,12 @@ public class MainActivity extends AppCompatActivity {
         public class ReminderItem {
             public String mTitle;
             public String mDateTime;
-            public String mRepeat;
-            public String mRepeatTime;
             public String mAddress;
             public String mActive;
 
-            public ReminderItem(String Title, String DateTime, String Repeat, String RepeatTime, String Address, String Active) {
+            public ReminderItem(String Title, String DateTime, String Address, String Active) {
                 this.mTitle = Title;
                 this.mDateTime = DateTime;
-                this.mRepeat = Repeat;
-                this.mRepeatTime = RepeatTime;
                 this.mAddress = Address;
                 this.mActive = Active;
             }
@@ -231,7 +210,7 @@ public class MainActivity extends AppCompatActivity {
 
             private TextView mTitle;
             private UserAdapter mAdapter;
-            private TextView mTime, mRepeat;
+            private TextView mTime;
 
             public ViewHolder(View itemView, UserAdapter adapter) {
                 super(itemView);
@@ -240,7 +219,6 @@ public class MainActivity extends AppCompatActivity {
                 mAdapter = adapter;
                 mTitle = (TextView) itemView.findViewById(R.id.recycle_title);
                 mTime = (TextView) itemView.findViewById(R.id.recycle_date_time);
-                mRepeat = (TextView) itemView.findViewById(R.id.recycle_repeat_info);
             }
 
             @Override
@@ -259,15 +237,9 @@ public class MainActivity extends AppCompatActivity {
                 mTime.setText(time);
             }
 
-/*            public void setReminderRepeat(String repeat, String RepeatTime) {
-                if(repeat.equals("true")){
-                    mRepeat.setText("Every " + RepeatTime + " Days " + "(s)");
-                }else if (repeat.equals("false")) {
-                    mRepeat.setText("Repeat Off");*/
-//                }
         }
     }
-    private void createNotificationChannel() {
+/*    private void createNotificationChannel() {
         // Create the NotificationChannel, but only on API 26+ because
         // the NotificationChannel class is new and not in the support library
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -281,5 +253,5 @@ public class MainActivity extends AppCompatActivity {
             NotificationManager notificationManager = getSystemService(NotificationManager.class);
             notificationManager.createNotificationChannel(channel);
         }
-    }
+    }*/
 }

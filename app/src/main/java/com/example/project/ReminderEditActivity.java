@@ -1,5 +1,6 @@
 package com.example.project;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
@@ -9,9 +10,12 @@ import android.app.PendingIntent;
 import android.app.TimePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.TextWatcher;
@@ -26,8 +30,10 @@ import android.widget.Toast;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
+import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
+import androidx.core.content.ContextCompat;
 
 import java.util.Calendar;
 
@@ -35,21 +41,23 @@ public class ReminderEditActivity extends AppCompatActivity {
 
     private int mYear, mMonth, mHour, mMinute, mDay;
     private Calendar cal;
-    private TextView setTitle, setDate, setTime, repeatTime, setAddress, mRepeatText;
-    private String mDate, mTime, mTitle, mActive;
-    private String mRepeat, mRepeatTime, mAddress;
+    private TextView setTitle, setDate, setTime, setAddress, setContact;
+    private String mDate, mTime, mTitle, mActive, mContact;
+    private String mAddress;
     private DatePickerDialog.OnDateSetListener onDate;
     private TimePickerDialog.OnTimeSetListener onTime;
-    private long mRepeatLast;
     private int mReceivedID;
     private Reminder mReceivedReminder;
     private DatabaseHelper userData;
-    private Switch setActive, setRepeat;
+    private Switch setActive;
     private AlarmReceiver mAlarmReceiver;
     private String[] mDateSplit;
     private String[] mTimeSplit;
     public static final String EXTRA_REMINDER_ID = "Reminder_ID";
     private static final long milDay = 86400000L;
+    private static final int LOADER_ID=1976;
+    private static final int PICK_CONTACT=122;
+    private static final int PERMISSIONS_REQUEST_READ_CONTACTS = 100;
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -59,45 +67,33 @@ public class ReminderEditActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main_setting);
 
         setTitle = findViewById(R.id.title);
+        setContact = findViewById(R.id.set_contact);
         setDate = findViewById(R.id.set_date);
         setTime = findViewById(R.id.set_time);
-/*        mRepeatText = findViewById(R.id.set_repeat);
-        repeatTime = findViewById(R.id.set_repeat_time);*/
         setAddress = findViewById(R.id.set_address);
         setActive = findViewById(R.id.active_switch);
-//        setRepeat = findViewById(R.id.repeat_switch);
 
         mReceivedID = Integer.parseInt(getIntent().getStringExtra(EXTRA_REMINDER_ID));
         userData = new DatabaseHelper(this);
         mReceivedReminder = userData.getReminder(mReceivedID);
 
         mTitle = mReceivedReminder.getTitle();
+        mContact = mReceivedReminder.getContact();
         mDate = mReceivedReminder.getDate();
         mTime = mReceivedReminder.getTime();
-        mRepeat = mReceivedReminder.getRepeat();
-        mRepeatTime = mReceivedReminder.getRepeatTime();
         mAddress = mReceivedReminder.getAddress();
         mActive = mReceivedReminder.getActive();
 
         setTitle.setText(mTitle);
+        setContact.setText(mContact);
         setDate.setText(mDate);
         setTime.setText(mTime);
         setAddress.setText(mAddress);
-        repeatTime.setText("Every " + mRepeatTime + " Day(s)");
 
         if (mActive.equals("false")) {
             setActive.setChecked(false);
         } else if (mActive.equals("true")) {
             setActive.setChecked(true);
-        }
-
-        if (mRepeat.equals("false")) {
-            setRepeat.setChecked(false);
-            mRepeatText.setText(R.string.repeat_off);
-
-        } else if (mRepeat.equals("true")) {
-            setRepeat.setChecked(true);
-            mRepeatText.setText(R.string.repeat_on);
         }
 
         cal = Calendar.getInstance();
@@ -167,6 +163,54 @@ public class ReminderEditActivity extends AppCompatActivity {
                 }
             }
         };
+        requestPermissions();
+    }
+    public void requestPermissions()
+    {
+        // Here, thisActivity is the current activity
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED)
+        {
+            // No explanation needed, we can request the permission.
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_CONTACTS}, PERMISSIONS_REQUEST_READ_CONTACTS);
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults)
+    {
+        if (requestCode == PERMISSIONS_REQUEST_READ_CONTACTS)
+        {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED)
+            {
+                // Permission is granted
+            } else {
+                Toast.makeText(this, "You must grant permission to display contacts", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    //click contacts and get a contact
+    public void set_contact(View view){
+        Intent intent = new Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI);
+        startActivityForResult(intent, PICK_CONTACT);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == PICK_CONTACT) {
+            if (resultCode == RESULT_OK) {
+                Uri contactURI = data.getData();
+                Cursor cursor = getContentResolver().query(contactURI, null, null, null, null);
+                if (cursor.moveToFirst()) {
+                    String name = cursor.getString(cursor.getColumnIndexOrThrow(ContactsContract.Contacts.DISPLAY_NAME));
+                    Toast.makeText(this, name, Toast.LENGTH_SHORT).show();
+                    setContact.setText(name);
+                    mContact = name;
+                }
+                cursor.close();
+            }
+        }
     }
 
     // click DatePicker and get date
@@ -205,48 +249,6 @@ public class ReminderEditActivity extends AppCompatActivity {
         time.show(getSupportFragmentManager(), "Time Picker");
     }
 
-    // On clicking the repeat switch
-    public void onSwitchRepeat(View view) {
-        boolean on = ((Switch) view).isChecked();
-        if (on) {
-            mRepeat = "true";
-            mRepeatText.setText(R.string.repeat_on);
-        } else {
-            mRepeat = "false";
-            mRepeatText.setText(R.string.repeat_off);
-        }
-    }
-
-    // set repeat interval
-    public void setRepeatTime(View v) {
-        AlertDialog.Builder alert = new AlertDialog.Builder(this);
-        alert.setTitle("Enter Number");
-
-        // Create EditText box to input repeat number
-        final EditText input = new EditText(this);
-        input.setInputType(InputType.TYPE_CLASS_NUMBER);
-        alert.setView(input);
-        alert.setPositiveButton("Ok",
-                new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int whichButton) {
-
-                        if (input.getText().toString().length() == 0) {
-                            mRepeatTime = Integer.toString(1);
-                            repeatTime.setText("Every " + mRepeatTime + " Day " + "(s)");
-                        } else {
-                            mRepeatTime = input.getText().toString().trim();
-                            repeatTime.setText("Every " + mRepeatTime + " Day " + "(s)");
-                        }
-                    }
-                });
-        alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int whichButton) {
-                // do nothing
-            }
-        });
-        alert.show();
-    }
-
     // open address with Google Maps
     @SuppressLint("QueryPermissionsNeeded")
     public void launchMaps(View view) {
@@ -263,10 +265,9 @@ public class ReminderEditActivity extends AppCompatActivity {
     public void onSaveClick(View view){
         // Set new values in the reminder
         mReceivedReminder.setTitle(mTitle);
+        mReceivedReminder.setContact(mContact);
         mReceivedReminder.setDate(mDate);
         mReceivedReminder.setTime(mTime);
-        mReceivedReminder.setRepeat(mRepeat);
-        mReceivedReminder.setRepeatTime(mRepeatTime);
         mReceivedReminder.setAddress(mAddress);
         mReceivedReminder.setActive(mActive);
 
@@ -283,15 +284,10 @@ public class ReminderEditActivity extends AppCompatActivity {
 
         // Cancel existing notification of the reminder by using its ID
         mAlarmReceiver.cancelAlarm(getApplicationContext(), mReceivedID);
-        mRepeatLast = Integer.parseInt(mRepeatTime) * milDay;
 
         // Create a new notification
         if (mActive.equals("true")) {
-            if (mRepeat.equals("true")) {
-                mAlarmReceiver.setRepeatAlarm(getApplicationContext(), cal, mReceivedID, mRepeatLast);
-            } else if (mRepeat.equals("false")) {
                 mAlarmReceiver.setAlarm(getApplicationContext(), cal, mReceivedID);
-            }
         }
 
         // Create toast to confirm update
@@ -301,32 +297,6 @@ public class ReminderEditActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    /*private void CreateNotificationChannel() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            CharSequence name = "Notification channel name";
-            int importance = NotificationManager.IMPORTANCE_DEFAULT;
-            NotificationChannel channel = new NotificationChannel(CHANNEL_ID, name, importance);
-            channel.setDescription("Notification channel description");
-            // register the channel
-            NotificationManager notificationManager = getSystemService(NotificationManager.class);
-            notificationManager.createNotificationChannel(channel);
-        }
-    }
-
-    public void showNotification(View view) {
-        Intent intent = new Intent(this, MainActivity.class);
-        PendingIntent pendingIntent =
-                PendingIntent.getActivity(this, REQUEST_CODE, intent, PendingIntent.FLAG_ONE_SHOT);
-        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
-        NotificationCompat.Builder notifBuilder = new NotificationCompat.Builder(this, CHANNEL_ID)
-                .setSmallIcon(R.drawable.ic_launcher_foreground)
-                .setContentTitle("Titre")
-                .setContentText("Contenu")
-                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-                .setContentIntent(pendingIntent);
-        // notificationId : unique identifier to define
-        notificationManager.notify(NOTIFICATION_ID, notifBuilder.build());
-    }*/
 
     // click cancel button
     public void onCancelClick(View view) {

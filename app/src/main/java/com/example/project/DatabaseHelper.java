@@ -22,13 +22,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     // Table Columns names
     private static final String KEY_ID = "id";
     private static final String KEY_TITLE = "title";
+    private static final String KEY_CONTACT = "contact";
     private static final String KEY_DATE = "date";
     private static final String KEY_TIME = "time";
-    private static final String KEY_REPEAT = "repeat";
-    private static final String KEY_REPEAT_TIME = "repeat_time";
     private static final String KEY_ADDRESS = "address";
     private static final String KEY_ACTIVE = "active";
-    private static final String KEY_CONTACT = "contact";
+
 
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -41,10 +40,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 "("
                 + KEY_ID + " INTEGER PRIMARY KEY,"
                 + KEY_TITLE + " TEXT,"
+                + KEY_CONTACT + " TEXT,"
                 + KEY_DATE + " TEXT,"
                 + KEY_TIME + " INTEGER,"
-                + KEY_REPEAT + " BOOLEAN,"
-                + KEY_REPEAT_TIME + " INTEGER,"
                 + KEY_ADDRESS + " TEXT,"
                 + KEY_ACTIVE + " BOOLEAN" + ")";
         db.execSQL(CREATE_REMINDERS_TABLE);
@@ -67,10 +65,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
 
         values.put(KEY_TITLE, reminder.getTitle());
+        values.put(KEY_CONTACT, reminder.getContact());
         values.put(KEY_DATE, reminder.getDate());
         values.put(KEY_TIME, reminder.getTime());
-        values.put(KEY_REPEAT, reminder.getRepeat());
-        values.put(KEY_REPEAT_TIME, reminder.getRepeatTime());
         values.put(KEY_ADDRESS, reminder.getAddress());
         values.put(KEY_ACTIVE, reminder.getActive());
 
@@ -88,10 +85,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                         {
                                 KEY_ID,
                                 KEY_TITLE,
+                                KEY_CONTACT,
                                 KEY_DATE,
                                 KEY_TIME,
-                                KEY_REPEAT,
-                                KEY_REPEAT_TIME,
                                 KEY_ADDRESS,
                                 KEY_ACTIVE
                         }, KEY_ID + "=?",
@@ -103,7 +99,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         Reminder reminder = new Reminder(Integer.parseInt(cursor.getString(0)), cursor.getString(1),
                 cursor.getString(2), cursor.getString(3), cursor.getString(4),
-                cursor.getString(5), cursor.getString(6), cursor.getString(7));
+                cursor.getString(5), cursor.getString(6));
 
         return reminder;
     }
@@ -124,12 +120,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 Reminder reminder = new Reminder();
                 reminder.setID(Integer.parseInt(cursor.getString(0)));
                 reminder.setTitle(cursor.getString(1));
-                reminder.setDate(cursor.getString(2));
-                reminder.setTime(cursor.getString(3));
-                reminder.setRepeat(cursor.getString(4));
-                reminder.setRepeatTime(cursor.getString(5));
-                reminder.setAddress(cursor.getString(6));
-                reminder.setActive(cursor.getString(7));
+                reminder.setContact(cursor.getString(2));
+                reminder.setDate(cursor.getString(3));
+                reminder.setTime(cursor.getString(4));
+                reminder.setAddress(cursor.getString(5));
+                reminder.setActive(cursor.getString(6));
 
                 // Adding Reminders to list
                 reminderList.add(reminder);
@@ -153,10 +148,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(KEY_TITLE, reminder.getTitle());
+        values.put(KEY_CONTACT, reminder.getContact());
         values.put(KEY_DATE, reminder.getDate());
         values.put(KEY_TIME, reminder.getTime());
-        values.put(KEY_REPEAT, reminder.getRepeat());
-        values.put(KEY_REPEAT_TIME, reminder.getRepeatTime());
         values.put(KEY_ADDRESS, reminder.getAddress());
         values.put(KEY_ACTIVE, reminder.getActive());
 

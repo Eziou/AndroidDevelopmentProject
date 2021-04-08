@@ -45,15 +45,6 @@
             android:textSize="13sp"
             tools:text="Date and Time" />
 
-        <TextView
-            android:id="@+id/recycle_repeat_info"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ellipsize="marquee"
-            android:singleLine="true"
-            android:textSize="13sp"
-            tools:text="Repeat No and Type" />
-
     </LinearLayout>
 
     <ImageView

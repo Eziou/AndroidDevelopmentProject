@@ -84,7 +84,7 @@ public class AlarmReceiver extends BroadcastReceiver {
                 PackageManager.DONT_KILL_APP);
     }
 
-    public void setRepeatAlarm(Context context, Calendar calendar, int ID, long RepeatTime) {
+/*    public void setRepeatAlarm(Context context, Calendar calendar, int ID, long RepeatTime) {
         mAlarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
 
         // Put Reminder ID in Intent Extra
@@ -108,7 +108,7 @@ public class AlarmReceiver extends BroadcastReceiver {
         pm.setComponentEnabledSetting(receiver,
                 PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
                 PackageManager.DONT_KILL_APP);
-    }
+    }*/
 
     public void cancelAlarm(Context context, int ID) {
         mAlarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);

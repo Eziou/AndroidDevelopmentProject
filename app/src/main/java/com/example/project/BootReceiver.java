@@ -44,8 +44,6 @@ public class BootReceiver extends BroadcastReceiver {
 
             for (Reminder rm : reminders) {
                 mReceivedID = rm.getID();
-                mRepeat = rm.getRepeat();
-                mRepeatTime = rm.getRepeatTime();
                 mAddress = rm.getAddress();
                 mActive = rm.getActive();
                 mDate = rm.getDate();
@@ -87,11 +85,7 @@ public class BootReceiver extends BroadcastReceiver {
 
                 // Create a new notification
                 if (mActive.equals("true")) {
-                    if (mRepeat.equals("true")) {
-                        mAlarmReceiver.setRepeatAlarm(context, mCalendar, mReceivedID, mRepeatLast);
-                    } else if (mRepeat.equals("false")) {
                         mAlarmReceiver.setAlarm(context, mCalendar, mReceivedID);
-                    }
                 }
             }
         }
